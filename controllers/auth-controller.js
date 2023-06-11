@@ -58,9 +58,23 @@ const getCurrent = async (req, res) => {
   res.json({ email, subscription });
 };
 
+const updateSubscr = async (req, res) => {
+  const { _id: id, email, subscription } = req.user;
+  const { email: newEmail, subscription: newSubscription } = req.body;
+  if (newEmail !== email || newSubscription === subscription) {
+    throw HttpError(400);
+  }
+  await User.findByIdAndUpdate(id, { subscription: newSubscription });
+  const currentUser = await User.findById(id);
+  res.json({
+    user: { email: currentUser.email, subscription: currentUser.subscription },
+  });
+};
+
 module.exports = {
   register: ctrlWrapper(register),
   login: ctrlWrapper(login),
   logout: ctrlWrapper(logout),
   getCurrent: ctrlWrapper(getCurrent),
+  updateSubscr: ctrlWrapper(updateSubscr),
 };
