@@ -20,9 +20,6 @@ router.post("/login", validateBody(userRegisterSchema), authController.login);
 
 router.post("/logout", authenticate, authController.logout);
 
-router.get("/current", (req, res) => {
-  console.log("user current rout");
-  res.json("current");
-});
+router.get("/current", authenticate, authController.getCurrent);
 
 module.exports = router;
