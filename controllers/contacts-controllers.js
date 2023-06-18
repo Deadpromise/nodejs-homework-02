@@ -4,9 +4,12 @@ const { HttpError } = require("../helpers");
 const { ctrlWrapper } = require("../decorators");
 
 const getAllContacts = async (req, res) => {
-  console.log(Contact.collection.collectionName);
-  const result = await Contact.find();
-  console.log(result);
+  const { page = 1, limit = 10, ...query } = req.query;
+  const skip = (page - 1) * limit;
+  const result = await Contact.find({ ...query }, "", {
+    skip,
+    limit,
+  });
   res.json(result);
 };
 
