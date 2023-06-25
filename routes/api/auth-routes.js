@@ -2,7 +2,11 @@ const express = require("express");
 
 const authController = require("../../controllers/auth-controller");
 
-const { userRegisterSchema, userSubscrUpdateSchema } = require("../../schemas");
+const {
+  userRegisterSchema,
+  userSubscrUpdateSchema,
+  userEmailSchema,
+} = require("../../schemas");
 
 const { validateBody } = require("../../decorators");
 
@@ -17,6 +21,14 @@ router.post(
 );
 
 router.post("/login", validateBody(userRegisterSchema), authController.login);
+
+router.get("/verify/:verificationToken", authController.verify);
+
+router.post(
+  "/verify",
+  validateBody(userEmailSchema),
+  authController.resendVerify
+);
 
 router.post("/logout", authenticate, authController.logout);
 

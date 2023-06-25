@@ -3,6 +3,7 @@ const contactPutSchema = require("./contactPutSchema");
 const contactUpdateFavoriteSchema = require("./contactUpdateFavoriteSchema");
 const userRegisterSchema = require("./userRegisterSchema");
 const userSubscrUpdateSchema = require("./userSubscrUpdateSchema");
+const userEmailSchema = require("./userEmailSchema");
 
 module.exports = {
   contactAddSchema,
@@ -10,4 +11,5 @@ module.exports = {
   contactUpdateFavoriteSchema,
   userRegisterSchema,
   userSubscrUpdateSchema,
+  userEmailSchema,
 };
